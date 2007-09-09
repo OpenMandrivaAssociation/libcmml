@@ -1,16 +1,17 @@
 %define	major 1
-%define libname	%mklibname cmml %{major}
+%define libname %mklibname cmml %{major}
+%define develname %mklibname cmml -d
 
 Summary:	Library for handling Continuous Media Markup Language
 Name:		libcmml
 Version:	0.9.2
-Release:	%mkrel 1
+Release:	%mkrel 2
 Group:		System/Libraries
 License:	BSD
 URL:		http://www.annodex.net/
 Source0:	http://www.annodex.net/software/libcmml/download/%{name}-%{version}.tar.bz2
 BuildRequires:	doxygen
-BuildRequires:	libexpat-devel
+BuildRequires:	expat-devel
 BuildRequires:	autoconf2.5
 BuildRequires:	libtool
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -37,13 +38,14 @@ Media Markup Language (CMML), and returns C structures containing this
 information in a format which can be used by an Annodexer for creating
 ANNODEX(tm) format documents (ANX).
 
-%package -n	%{libname}-devel
+%package -n	%{develname}
 Summary:	Files needed for development using libcmml
 Group:		Development/C
-Provides:	%{name}-devel = %{version}
+Provides:	%{name}-devel = %{version}-%{release}
 Requires:	%{libname} = %{version}
+Obsoletes:	%{mklibname cmml 1 -d}
 
-%description -n	%{libname}-devel
+%description -n	%{develname}
 Libcmml is a library which enables the handling of documents written in CMML
 (Continuous Media Markup Language) for the Continuous Media Web (CMWeb).
 
@@ -106,7 +108,7 @@ rm -rf %{buildroot}%{_docdir}/libcmml
 %doc AUTHORS COPYING ChangeLog README
 %{_libdir}/*.so.*
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %doc doc/libcmml/html/* TODO
 %{_includedir}/*
@@ -120,5 +122,3 @@ rm -rf %{buildroot}%{_docdir}/libcmml
 %{_bindir}/cmml*
 %{_mandir}/man1/*
 %{_mandir}/man6/*
-
-
