@@ -14,6 +14,7 @@ BuildRequires:	doxygen
 BuildRequires:	expat-devel
 BuildRequires:	autoconf2.5
 BuildRequires:	libtool
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Libcmml is a library which enables the handling of documents written in CMML
