@@ -4,12 +4,13 @@
 
 Summary:	Library for handling Continuous Media Markup Language
 Name:		libcmml
-Version:	0.9.2
-Release:	%mkrel 2
+Version:	0.9.4
+Release:	%mkrel 1
 Group:		System/Libraries
 License:	BSD
 URL:		http://www.annodex.net/
-Source0:	http://www.annodex.net/software/libcmml/download/%{name}-%{version}.tar.bz2
+Source0:	http://www.annodex.net/software/libcmml/download/%{name}-%{version}.tar.gz
+Patch0:		libcmml-malloc_fix.diff
 BuildRequires:	doxygen
 BuildRequires:	expat-devel
 BuildRequires:	autoconf2.5
@@ -71,8 +72,13 @@ library.
 %prep
 
 %setup -q -n %{name}-%{version}
+%patch0 -p0
 
 %build
+rm -f configure
+libtoolize --copy --force; aclocal -I m4; automake; autoconf
+
+#export LIBS="-lm"
 
 %configure2_5x
 
@@ -82,7 +88,7 @@ library.
 make check
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %makeinstall_std
 
@@ -91,7 +97,6 @@ install -d %{buildroot}%{_mandir}/man6
 
 install -m0644 doc/*.1 %{buildroot}%{_mandir}/man1/
 install -m0644 doc/*.6 %{buildroot}%{_mandir}/man6/
-
 
 # cleanup
 rm -rf %{buildroot}%{_docdir}/libcmml
@@ -105,7 +110,7 @@ rm -rf %{buildroot}%{_docdir}/libcmml
 %endif
 
 %clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
                                                                                 
 %files -n %{libname}
 %defattr(-,root,root)
