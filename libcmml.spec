@@ -5,7 +5,7 @@
 Summary:	Library for handling Continuous Media Markup Language
 Name:		libcmml
 Version:	0.9.4
-Release:	%mkrel 1
+Release:	%mkrel 2
 Group:		System/Libraries
 License:	BSD
 URL:		http://www.annodex.net/
