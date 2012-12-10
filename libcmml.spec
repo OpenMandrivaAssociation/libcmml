@@ -5,7 +5,7 @@
 Summary:	Library for handling Continuous Media Markup Language
 Name:		libcmml
 Version:	0.9.4
-Release:	%mkrel 3
+Release:	4
 Group:		System/Libraries
 License:	BSD
 URL:		http://www.annodex.net/
@@ -15,7 +15,6 @@ BuildRequires:	doxygen
 BuildRequires:	expat-devel
 BuildRequires:	autoconf2.5
 BuildRequires:	libtool
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Libcmml is a library which enables the handling of documents written in CMML
@@ -88,8 +87,6 @@ libtoolize --copy --force; aclocal -I m4; automake; autoconf
 make check
 
 %install
-rm -rf %{buildroot}
-
 %makeinstall_std
 
 install -d %{buildroot}%{_mandir}/man1
@@ -101,33 +98,56 @@ install -m0644 doc/*.6 %{buildroot}%{_mandir}/man6/
 # cleanup
 rm -rf %{buildroot}%{_docdir}/libcmml
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
-%clean
-rm -rf %{buildroot}
-                                                                                
+                                                                               
 %files -n %{libname}
-%defattr(-,root,root)
 %doc AUTHORS COPYING ChangeLog README
 %{_libdir}/*.so.*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %doc doc/libcmml/html/* TODO
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/*.a
-%{_libdir}/*.la
 %{_libdir}/pkgconfig/cmml.pc
 
 %files tools
-%defattr(-,root,root)
 %{_bindir}/cmml*
 %{_mandir}/man1/*
 %{_mandir}/man6/*
+
+
+%changelog
+* Fri Dec 10 2010 Oden Eriksson <oeriksson@mandriva.com> 0.9.4-3mdv2011.0
++ Revision: 620087
+- the mass rebuild of 2010.0 packages
+
+* Fri Sep 04 2009 Thierry Vignaud <tv@mandriva.org> 0.9.4-2mdv2010.0
++ Revision: 429718
+- rebuild
+
+* Sat Jun 28 2008 Oden Eriksson <oeriksson@mandriva.com> 0.9.4-1mdv2009.0
++ Revision: 229596
+- 0.9.4
+- added P0 to make it build with gcc43
+
+  + Pixel <pixel@mandriva.com>
+    - do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+* Sun Sep 09 2007 Oden Eriksson <oeriksson@mandriva.com> 0.9.2-2mdv2008.0
++ Revision: 83598
+- new devel naming
+
+
+* Sat Dec 09 2006 Oden Eriksson <oeriksson@mandriva.com> 0.9.2-1mdv2007.0
++ Revision: 94064
+- Import libcmml
+
+* Mon Aug 07 2006 Oden Eriksson <oeriksson@mandriva.com> 0.9.2-1mdv2007.0
+- initial Mandriva package (fc5 extras import)
+
