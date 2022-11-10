@@ -8,8 +8,8 @@ Version:	0.9.4
 Release:	6
 Group:		System/Libraries
 License:	BSD
-URL:		http://www.annodex.net/
-Source0:	http://www.annodex.net/software/libcmml/download/%{name}-%{version}.tar.gz
+URL:		https://www.annodex.net/
+Source0:	https://www.annodex.net/software/libcmml/download/%{name}-%{version}.tar.gz
 Patch0:		libcmml-malloc_fix.diff
 BuildRequires:	doxygen
 BuildRequires:	expat-devel
