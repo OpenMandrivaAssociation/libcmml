@@ -5,7 +5,7 @@
 Summary:	Library for handling Continuous Media Markup Language
 Name:		libcmml
 Version:	0.9.4
-Release:	5
+Release:	6
 Group:		System/Libraries
 License:	BSD
 URL:		http://www.annodex.net/
@@ -38,6 +38,12 @@ Media Markup Language (CMML), and returns C structures containing this
 information in a format which can be used by an Annodexer for creating
 ANNODEX(tm) format documents (ANX).
 
+%files -n %{libname}
+%doc AUTHORS COPYING ChangeLog README
+%{_libdir}/*.so.*
+
+#----------------------------------------------------------------------------
+
 %package -n	%{develname}
 Summary:	Files needed for development using libcmml
 Group:		Development/C
@@ -57,6 +63,15 @@ ANNODEX(tm) format documents (ANX).
 This package contains the header files and documentation needed for development
 using libcmml.
 
+%files -n %{develname}
+%doc doc/libcmml/html/* TODO
+%{_includedir}/*
+%{_libdir}/*.so
+%{_libdir}/*.a
+%{_libdir}/pkgconfig/cmml.pc
+
+#----------------------------------------------------------------------------
+
 %package	tools
 Summary:	Various tools using the Continuous Media Markup Language library
 Group:          File tools
@@ -68,26 +83,29 @@ Libcmml is a library which enables the handling of documents written in CMML
 This package contains various tools using the Continuous Media Markup Language
 library.
 
-%prep
+%files tools
+%{_bindir}/cmml*
+%{_mandir}/man1/*
+%{_mandir}/man6/*
 
-%setup -q -n %{name}-%{version}
-%patch0 -p0
+#----------------------------------------------------------------------------
+
+%prep
+%autosetup -p0 -n %{name}-%{version}
 
 %build
 rm -f configure
 libtoolize --copy --force; aclocal -I m4; automake; autoconf
 
 #export LIBS="-lm"
-
-%configure2_5x
-
-%make
+%configure
+%make_build
 
 %check
 make check
 
 %install
-%makeinstall_std
+%make_install
 
 install -d %{buildroot}%{_mandir}/man1
 install -d %{buildroot}%{_mandir}/man6
@@ -97,24 +115,6 @@ install -m0644 doc/*.6 %{buildroot}%{_mandir}/man6/
 
 # cleanup
 rm -rf %{buildroot}%{_docdir}/libcmml
-
-                                                                               
-%files -n %{libname}
-%doc AUTHORS COPYING ChangeLog README
-%{_libdir}/*.so.*
-
-%files -n %{develname}
-%doc doc/libcmml/html/* TODO
-%{_includedir}/*
-%{_libdir}/*.so
-%{_libdir}/*.a
-%{_libdir}/pkgconfig/cmml.pc
-
-%files tools
-%{_bindir}/cmml*
-%{_mandir}/man1/*
-%{_mandir}/man6/*
-
 
 %changelog
 * Fri Dec 10 2010 Oden Eriksson <oeriksson@mandriva.com> 0.9.4-3mdv2011.0
