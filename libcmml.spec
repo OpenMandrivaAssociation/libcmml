@@ -67,7 +67,6 @@ using libcmml.
 %doc doc/libcmml/html/* TODO
 %{_includedir}/*
 %{_libdir}/*.so
-%{_libdir}/*.a
 %{_libdir}/pkgconfig/cmml.pc
 
 #----------------------------------------------------------------------------
