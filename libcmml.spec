@@ -94,10 +94,7 @@ library.
 %autosetup -p0 -n %{name}-%{version}
 
 %build
-rm -f configure
-libtoolize --copy --force; aclocal -I m4; automake; autoconf
-
-#export LIBS="-lm"
+%config_update
 %configure
 %make_build
 
