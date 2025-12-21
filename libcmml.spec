@@ -11,6 +11,10 @@ License:	BSD
 URL:		https://www.annodex.net/
 Source0:	https://www.annodex.net/software/libcmml/download/%{name}-%{version}.tar.gz
 Patch0:		libcmml-malloc_fix.diff
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	doxygen
 BuildRequires:	expat-devel
 BuildRequires:	autoconf2.5
